@@ -12,10 +12,6 @@ import (
 	offConfig "github.com/geiqin/wechat/officialaccount/config"
 	"github.com/geiqin/wechat/openplatform"
 	openConfig "github.com/geiqin/wechat/openplatform/config"
-	"github.com/geiqin/wechat/pay"
-	payConfig "github.com/geiqin/wechat/pay/config"
-	"github.com/geiqin/wechat/work"
-	workConfig "github.com/geiqin/wechat/work/config"
 )
 
 func init() {
@@ -61,10 +57,6 @@ func (wc *Wechat) GetMiniProgram(cfg *miniConfig.Config) *miniprogram.MiniProgra
 	return miniprogram.NewMiniProgram(cfg)
 }
 
-// GetPay 获取微信支付的实例
-func (wc *Wechat) GetPay(cfg *payConfig.Config) *pay.Pay {
-	return pay.NewPay(cfg)
-}
 
 // GetOpenPlatform 获取微信开放平台的实例
 func (wc *Wechat) GetOpenPlatform(cfg *openConfig.Config) *openplatform.OpenPlatform {
@@ -72,12 +64,4 @@ func (wc *Wechat) GetOpenPlatform(cfg *openConfig.Config) *openplatform.OpenPlat
 		cfg.Cache = wc.cache
 	}
 	return openplatform.NewOpenPlatform(cfg)
-}
-
-// GetWork 获取企业微信的实例
-func (wc *Wechat) GetWork(cfg *workConfig.Config) *work.Work {
-	if cfg.Cache == nil {
-		cfg.Cache = wc.cache
-	}
-	return work.NewWork(cfg)
 }
