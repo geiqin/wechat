@@ -2,9 +2,8 @@ package cache
 
 import (
 	"context"
+	"github.com/go-redis/redis"
 	"time"
-
-	"github.com/go-redis/redis/v8"
 )
 
 // Redis .redis cache
@@ -52,10 +51,10 @@ func (r *Redis) Get(key string) interface{} {
 
 // GetContext 获取一个值
 func (r *Redis) GetContext(ctx context.Context, key string) interface{} {
-	result, err := r.conn.Do(ctx, "GET", key).Result()
-	if err != nil {
-		return nil
-	}
+	result := r.Get(key)
+	//if err != nil {
+	//return nil
+	//}
 	return result
 }
 
@@ -66,7 +65,7 @@ func (r *Redis) Set(key string, val interface{}, timeout time.Duration) error {
 
 // SetContext 设置一个值
 func (r *Redis) SetContext(ctx context.Context, key string, val interface{}, timeout time.Duration) error {
-	return r.conn.SetEX(ctx, key, val, timeout).Err()
+	return r.conn.Set(key, val, timeout).Err()
 }
 
 // IsExist 判断key是否存在
@@ -76,7 +75,7 @@ func (r *Redis) IsExist(key string) bool {
 
 // IsExistContext 判断key是否存在
 func (r *Redis) IsExistContext(ctx context.Context, key string) bool {
-	result, _ := r.conn.Exists(ctx, key).Result()
+	result, _ := r.conn.Exists(key).Result()
 
 	return result > 0
 }
@@ -88,5 +87,5 @@ func (r *Redis) Delete(key string) error {
 
 // DeleteContext 删除
 func (r *Redis) DeleteContext(ctx context.Context, key string) error {
-	return r.conn.Del(ctx, key).Err()
+	return r.conn.Del(key).Err()
 }
