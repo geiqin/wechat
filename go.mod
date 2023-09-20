@@ -3,7 +3,6 @@ module github.com/geiqin/wechat
 go 1.17
 
 require (
-	github.com/bradfitz/gomemcache v0.0.0-20220106215444-fb4bf637b56d
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.7.1

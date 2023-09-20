@@ -28,9 +28,10 @@ func NewRedis(ctx context.Context, opts *RedisOpts) *Redis {
 		Addrs:        []string{opts.Host},
 		DB:           opts.Database,
 		Password:     opts.Password,
-		IdleTimeout:  time.Second * time.Duration(opts.IdleTimeout),
-		MinIdleConns: opts.MaxIdle,
+		//IdleTimeout:  time.Second * time.Duration(opts.IdleTimeout),
+		//MinIdleConns: opts.MaxIdle,
 	})
+
 	return &Redis{ctx: ctx, conn: conn}
 }
 
