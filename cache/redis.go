@@ -52,10 +52,10 @@ func (r *Redis) Get(key string) interface{} {
 
 // GetContext 获取一个值
 func (r *Redis) GetContext(ctx context.Context, key string) interface{} {
-	result := r.Get(key)
-	//if err != nil {
-	//return nil
-	//}
+	result,err := r.conn.Get(key).Result()
+	if err != nil {
+		return nil
+	}
 	return result
 }
 
